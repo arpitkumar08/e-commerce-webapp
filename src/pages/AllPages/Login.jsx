@@ -6,6 +6,8 @@ import { account } from '../../app/config';
 import toast from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { loginSuccess } from '../../redux/authSlice';
+import { resetCart } from '../../redux/cartSlice';
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ const Login = () => {
 
       // 3. Dispatch login success with real user data
       dispatch(loginSuccess(user));
+       dispatch(resetCart());
 
       toast.success("Login Successful!", {
         position: "top-right",

@@ -4,9 +4,13 @@ import Button from '../../Components/Button'
 import { account, ID } from '../../app/config'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { resetCart } from '../../redux/cartSlice';
+import { useDispatch } from 'react-redux'
+import { loginSuccess } from '../../redux/authSlice'
 
 const Signup = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -34,6 +38,11 @@ const Signup = () => {
 
       // Auto login after signup
       await account.createEmailPasswordSession(email, password)
+
+      const user = await account.get()
+
+      dispatch(loginSuccess(user))
+      dispatch(resetCart());
 
       toast.success("Signup successful! Redirecting...")
       setTimeout(() => navigate("/"), 1500)
