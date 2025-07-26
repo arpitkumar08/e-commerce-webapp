@@ -12,7 +12,6 @@ function AllProducts() {
 
 
     const isAuthenticated = useSelector((state) => {
-        console.log(state);
         return state.auth.isAuthenticated
 
     });

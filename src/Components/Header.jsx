@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { PiUserCircleLight } from "react-icons/pi";
 import { FaCartShopping } from "react-icons/fa6";
 import { account } from '../app/config';
@@ -8,6 +8,9 @@ import Loading from './Loading';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import {logout} from '../redux/authSlice'
+import { useNavigate } from 'react-router-dom';
+
+
 function Header() {
     const [profileBtn, setProfileBtn] = useState(false);
     const [userName, setUserName] = useState(null);
@@ -40,6 +43,9 @@ function Header() {
         setProfileBtn(prev => !prev);
     };
 
+    const handleAddToCart = () => {
+        navigate("/cart");
+    }
     const handleLogout = async () => {
         try {
             await account.deleteSession("current");
@@ -81,7 +87,7 @@ function Header() {
             <div className='w-full sm:w-auto flex items-center gap-3 relative justify-end'>
                 {/* Cart */}
                 <div className="relative cursor-pointer">
-                    <FaCartShopping className='h-6 w-6 sm:h-8 sm:w-8' />
+                    <FaCartShopping onClick={handleAddToCart} className='h-6 w-6 sm:h-8 sm:w-8' />
                     <span className="absolute -top-1.5 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5">
                         {cartCount}
                     </span>

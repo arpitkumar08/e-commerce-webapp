@@ -11,7 +11,7 @@ function BestSeller() {
     const [loading, setLoading] = useState(true);
 
     const isAuthenticated = useSelector((state) => {
-        console.log(state);
+        // console.log(state);
         return state.auth.isAuthenticated
         
     });
