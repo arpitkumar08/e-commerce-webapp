@@ -1,10 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/cartSlice'; // Adjust path if needed
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function AllProducts() {
     const [allProducts, setAllProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+
+    const isAuthenticated = useSelector((state) => {
+        console.log(state);
+        return state.auth.isAuthenticated
+
+    });
+
+    const navigate = useNavigate();
+
+
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        if (!isAuthenticated) {
+            toast("Please login to continue");
+            navigate("/auth"); // redirect to login page
+            return;
+        }
+
+        dispatch(addToCart(product));
+        toast.success("Item added to cart");
+    };
     useEffect(() => {
         const fetchAllProducts = async () => {
             try {
@@ -71,8 +97,12 @@ function AllProducts() {
 
                                     <div className="flex flex-col gap-2 mt-auto">
                                         <Button
+                                            onClick={() => handleAddToCart(product)}
                                             text="Add to Cart"
-                                            className="bg-black cursor-pointer text-white text-sm sm:text-base font-medium px-4 py-2 rounded-md shadow hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out w-full"
+                                            className={`${!isAuthenticated ? 'opacity-100 cursor-pointer hover:scale-105 transition duration-300 ease-in-out' : 'hover:scale-105'}
+      bg-black text-white text-sm sm:text-base font-medium px-4 py-2 rounded-md shadow transition duration-300 ease-in-out w-full`}
+                                            title={!isAuthenticated ? 'Login to add items to cart' : ''}
+
                                         />
                                         <Button
                                             text="Buy Now"

@@ -6,12 +6,15 @@ import { account } from '../app/config';
 import toast from 'react-hot-toast';
 import Loading from './Loading';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+import {logout} from '../redux/authSlice'
 function Header() {
     const [profileBtn, setProfileBtn] = useState(false);
     const [userName, setUserName] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    const dispatch = useDispatch()
 
     const cartCount = useSelector((state) => state.cart.cartCount)
     useEffect(() => {
@@ -40,12 +43,13 @@ function Header() {
     const handleLogout = async () => {
         try {
             await account.deleteSession("current");
+            dispatch(logout())
             toast.success("Logout Successful!", {
                 position: "top-right",
             });
             setUserName(null);
             setProfileBtn(false);
-            navigate("/auth");
+            // navigate("/auth");
         } catch (error) {
             console.error("Logout failed", error);
         }
@@ -68,7 +72,7 @@ function Header() {
             <div className='w-full sm:w-1/2'>
                 <input
                     type="search"
-                    placeholder='Search Items...'
+                    plaaceholder='Search Items...'
                     className='border border-gray-400 rounded-xl p-2 w-full text-sm sm:text-base'
                 />
             </div>

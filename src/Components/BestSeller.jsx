@@ -100,7 +100,7 @@ function BestSeller() {
                                         <Button
                                             onClick={() => handleAddToCart(product)}
                                             text="Add to Cart"
-                                            className={`${!isAuthenticated ? 'opacity-60' : 'hover:scale-105'}
+                                            className={`${!isAuthenticated ? 'opacity-100 cursor-pointer hover:scale-105 transition duration-300 ease-in-out' : 'hover:scale-105'}
       bg-black text-white text-sm sm:text-base font-medium px-4 py-2 rounded-md shadow transition duration-300 ease-in-out w-full`}
                                             title={!isAuthenticated ? 'Login to add items to cart' : ''}
 
