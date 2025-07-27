@@ -10,11 +10,8 @@ function BestSeller() {
     const [allProducts, setAllProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const isAuthenticated = useSelector((state) => {
-        // console.log(state);
-        return state.auth.isAuthenticated
-        
-    });
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    
 
     const navigate = useNavigate();
 
@@ -30,6 +27,17 @@ function BestSeller() {
         dispatch(addToCart(product));
         toast.success("Item added to cart");
     };
+    const handleBuyNow = (product) => {
+        if (!isAuthenticated) {
+            toast("Please login to continue");
+            navigate("/auth");
+            return;
+        }
+
+        dispatch(addToCart(product));
+        navigate("/checkout");
+    };
+
 
     useEffect(() => {
         const fetchAllProducts = async () => {
@@ -106,6 +114,7 @@ function BestSeller() {
 
                                         />
                                         <Button
+                                            onClick={() => handleBuyNow(product)}
                                             text="Buy Now"
                                             className="bg-yellow-500 cursor-pointer text-white text-sm sm:text-base font-medium px-4 py-2 rounded-md shadow hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out w-full"
                                         />

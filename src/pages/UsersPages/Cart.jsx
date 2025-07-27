@@ -18,6 +18,10 @@ const CartPage = () => {
         navigate("/");
     };
 
+    const handleCheckout = () => {
+        navigate("/checkout");
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <h1 className="text-3xl font-bold mb-6 text-gray-800">
@@ -36,7 +40,7 @@ const CartPage = () => {
                 </div>
             ) : (
                 <>
-                    <div className="grid grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {items.map((item) => (
                             <div
                                 key={item.id}
@@ -80,7 +84,7 @@ const CartPage = () => {
                         <h2 className="text-xl font-semibold text-gray-700">
                             Grand Total: <span className="text-green-700">${totalPrice.toFixed(2)}</span>
                         </h2>
-                        <div className="flex space-x-4 mt-4 sm:mt-0">
+                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-0">
                             <button
                                 onClick={() => dispatch(resetCart())}
                                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
@@ -89,9 +93,15 @@ const CartPage = () => {
                             </button>
                             <button
                                 onClick={handleBackHome}
-                                className="bg-black text-white px-4 py-2 rounded hover:bg-black"
+                                className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
                             >
                                 Back to Home
+                            </button>
+                            <button
+                                onClick={handleCheckout}
+                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                            >
+                                Checkout
                             </button>
                         </div>
                     </div>

@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Get stored values from localStorage
 const storedUser = JSON.parse(localStorage.getItem("user"));
-const storedAuth = localStorage.getItem("isAuthenticated") === "true";
+const storedAuth = localStorage.getItem("isAuthenticated");
 
+// Fix: Only authenticate if both user and auth flag are valid
 const initialState = {
-  isAuthenticated: storedAuth || false,
+  isAuthenticated: storedAuth === "false" && storedUser !== null,
   user: storedUser || null,
 };
-
 
 const authSlice = createSlice({
   name: "auth",
