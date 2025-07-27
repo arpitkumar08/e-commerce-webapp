@@ -27,6 +27,16 @@ const Pricelessthan20 = () => {
         dispatch(addToCart(product))
         toast.success("Item added to cart")
     }
+    const handleBuyNow = (product) => {
+        if (!isAuthenticated) {
+            toast("Please login to continue");
+            navigate("/auth");
+            return;
+        }
+
+        dispatch(addToCart(product));
+        navigate("/checkout");
+    };
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -108,6 +118,7 @@ const Pricelessthan20 = () => {
 
                                         />
                                         <Button
+                                            onClick={() => handleBuyNow(product)}
                                             text="Buy Now"
                                             className="bg-yellow-500 cursor-pointer text-white text-sm sm:text-base font-medium px-4 py-2 rounded-md shadow hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out w-full"
                                         />
