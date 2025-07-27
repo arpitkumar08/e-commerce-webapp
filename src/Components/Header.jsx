@@ -74,17 +74,10 @@ function Header() {
                 />
             </NavLink>
 
-            {/* Search Input */}
-            <div className='w-full sm:w-1/2'>
-                <input
-                    type="search"
-                    plaaceholder='Search Items...'
-                    className='border border-gray-400 rounded-xl p-2 w-full text-sm sm:text-base'
-                />
-            </div>
+            
 
             {/* Profile & Cart Section */}
-            <div className='w-full sm:w-auto flex items-center gap-3 relative justify-end'>
+            <div className='w-full sm:w-auto flex items-center gap-6 relative justify-end'>
                 {/* Cart */}
                 <div className="relative cursor-pointer">
                     <FaCartShopping onClick={handleAddToCart} className='h-6 w-6 sm:h-8 sm:w-8' />
